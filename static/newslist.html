@@ -1,0 +1,114 @@
+
+<!DOCTYPE HTML>
+<html ng-app="myweb">
+<head>
+<title>新闻列表</title>
+<!-- Bootstrap -->
+<!-- <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' /> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/main.css"  rel="stylesheet" type="text/css"/>
+
+<!-- start plugins -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/vue-router.js"></script>
+<script type="text/javascript" src="js/vue-resource.js"></script>
+<!-- <script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+<!-- start slider -->
+<!-- <link href="css/slider.css" rel="stylesheet" type="text/css" media="all" />
+
+<link rel="stylesheet" href="fonts/css/font-awesome.min.css"> -->
+<!--font-Awesome-->
+</head>
+<body>
+	<div class="banner"></div>
+	<div class="sub">
+		<div class="submain">
+			新闻中心
+		</div>
+	</div>
+	<div class="container">
+			<div class="newstab">
+					<a href="newslist.html?type=xw" id="nt1">新闻</a>
+					<a href="newslist.html?type=gl" id="nt2">攻略</a>
+					<a href="newslist.html?type=hd" id="nt3">活动</a>                 
+					<a href="newslist.html?type=gg" id="nt4">公告</a>
+		   </div>
+		   <!-- <span style="font-size:30px;">{{newstype}}</span> -->
+		   <div class="newscontent">
+				<ul class="newsul">
+					<li v-for="item in newslist">
+						<a :href="'newsinfo.html?id='+item.ID" target="_blank">{{item.title}}</a>
+						<span class="newstime">{{item.pubtime}}</span>
+						<!-- {{item.description}} -->
+					</li>
+				</ul>
+		   </div>				
+    </div>
+<script>
+	function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+      }
+	var ntype = GetQueryString('type');
+	if(ntype=='all'){
+		ntype='';
+	}
+	if(ntype=='xw'){
+		$("a#nt1").addClass('sel');
+	}else if(ntype=='gl'){
+		$("a#nt2").addClass('sel');
+	}else if(ntype=='hd'){
+		$("a#nt3").addClass('sel');
+	}else if(ntype=='gg'){
+		$("a#nt4").addClass('sel');
+	}
+	var newsdata=new Vue({
+		el:".container",
+		data:{
+			newslist:[],
+			newstype:''
+		},
+		mounted() {
+			this.getList(),
+			this.setType()
+		},
+		methods:{
+			getList:function(){
+				this.$http({
+					method:'get',
+					url:`/get_list?type=${ntype}`,
+				}).then(function(res){
+					this.newslist=res.data;
+					console.log(res.data);
+				},function(err){
+					console.log(err);
+				})
+			},
+			setType:function(){
+				//console.log(ntype);
+				switch(ntype){
+					case'':this.newstype='全部新闻';
+							break;
+					case'gg':this.newstype='公告';
+						    break;
+					case'gl':this.newstype='攻略';
+							break;
+					case'zx':this.newstype='资讯';
+							break;
+					default:this.newstype='全部新闻';
+					        break;
+				}
+			}
+		}
+	})
+</script>
+</body>
+</html>

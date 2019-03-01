@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <title>管理员登录</title>
+    <style>
+    body{background:#ddd;}
+    .container{vertical-align: middle;}
+    .form-signin {
+        width: 330px;
+        padding: 15px;
+        position:fixed;
+        top:50%;
+        margin-top:-168px;
+        left:50%;
+        margin-left:-165px;
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .form-signin .checkbox {
+        font-weight: normal;
+      }
+      .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+      }
+      .form-signin .form-control:focus {
+        z-index: 2;
+      }
+      .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+   </style>
+</head>
+<body>
+    <div class="container" class="form-signin">
+        <!-- <form action="/admin/login" method="POST">
+            用户:<input type="text" id="user" name="user" value=""/><br>
+            密码:<input type="password" id="pwd" name="pwd" value=""/><br>
+            <input type="submit" name="submit" value="登录"/>
+        </form> --> 
+        <form action="/admin/login" class="form-signin" method="POST">
+        <h2 class="form-signin-heading">请登录</h2>
+        <label for="user" class="sr-only">账号</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="用户名" id="user" name="user" autofocus>
+        <label for="pwd" class="sr-only">密码</label>
+        <input type="password" class="form-control" placeholder="密码" required id="pwd" name="pwd" value="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">登录</button>
+      </form>
+
+    </div>
+    <!-- <script type="text/javascript" src="../../js/bootstrap.js"></script> -->
+</body>
+</html>

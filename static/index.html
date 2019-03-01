@@ -1,0 +1,86 @@
+
+<!DOCTYPE HTML>
+<html ng-app="myweb">
+<head>
+<title>Learner a education bootstrap Website Template | Home </title>
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!--[if lt IE 9]>
+     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- start plugins -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- start slider -->
+<link href="css/slider.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="js/modernizr.custom.28468.js"></script>
+<script type="text/javascript" src="js/jquery.cslider.js"></script>
+<script>
+	angular.module('myweb',[])
+	.controller('index',function($scope,$http){
+		$http.get('/get_banners').then(function(res){
+			//alert('成功:'+res.data);
+			$scope.banners=res.data;
+			for(var i=0;i<$scope.banners.length;i++){
+				$scope.banners[i].hide=true;
+			}
+			$scope.banners[0].hide=false;
+		},function(){
+			alert('获取数据失败');
+		});
+		$http.get('/get_custom').then(function(res){
+			$scope.custom=res.data;
+        //    for(var i=0;i<$scope.custom.length;i++){
+
+		//    }
+		},function(){
+			alert('获取评价信息失败');
+		});
+	})
+</script>
+	<script type="text/javascript">
+			$(function() {
+
+				$('#da-slider').cslider({
+					autoplay : true,
+					bgincrement : 450
+				});
+
+			});
+		</script>
+
+   	<link rel="stylesheet" href="fonts/css/font-awesome.min.css">
+<!--font-Awesome-->
+</head>
+<body ng-controller="index">
+
+
+
+<div class="main_btm"><!-- start main_btm -->
+	<div class="container">
+
+				<!----start-img-cursual---->
+					<div id="owl-demo" class="owl-carousel text-center">
+						<div class="item" ng-repeat="item in custom">
+							<div class="cau_left">
+								<img class="lazyOwl" src="upload/{{item.src}}" alt="Lazy Owl Image" style="width:300px;">
+							</div>
+							<div class="cau_left">
+								<h4><a href="#">{{item.title}}</a></h4>
+								<p>
+									{{item.description}}
+								</p>
+							</div>
+						</div>
+						
+	</div>
+</div>
+</body>
+</html>

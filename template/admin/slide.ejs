@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图管理</title>
+</head>
+<body style="padding-bottom:150px;">
+    <% include ../common/top.ejs %>
+    <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-3 col-md-2 sidebar">
+                <% include ../common/left.ejs %>
+              </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <form action="?" method="POST" enctype="multipart/form-data">
+                标题:<input type="text" name="title" class="form-control"/><br>
+                链接:<textarea name="href" class="form-control"></textarea><br>
+                图片:<input type="file" name="imgsrc" class="form-control"/><br>
+                <input type="submit" value="添加" class="btn btn-lg btn-primary"/>
+           </form>         
+        <table border="2" width="100%" class="table table-striped" style="margin-top:20px;">
+           <thead>
+               <tr>
+                   <th>ID</th>
+                   <th>标题</th>
+                   <th>链接</th>
+                   <th>图片</th>
+                   <th>操作</th>
+               </tr>
+           </thead>
+           <tbody>
+              <% for(var i=0;i<custom.length;i++){ %>  
+               <tr>
+                   <td><%= custom[i].ID %></td>
+                   <td><%= custom[i].title %></td>
+                   <td><%= custom[i].href %></td>
+                   <td><img width="100" src='/upload/<%= custom[i].src %>'/></td>
+                   <td>
+                       <a href="?act=mod&id=<%= custom[i].ID %>">修改</a>
+                       <a href="?act=del&id=<%= custom[i].ID %>" onclick="return confirm('真要删吗')">删除</a>
+                   </td>
+               </tr>
+              <% } %>
+           </tbody>
+       </table>
+      <% if(typeof mod_data!='undefined'){ %>
+       <div>
+           修改:<br>
+           <form action="?" method="POST" enctype="multipart/form-data">
+               <input type="hidden" name="mod_id" value="<%= mod_data.ID %>" class="form-control"/>
+               标题:<input type="text" name="title" value="<%= mod_data.title %>" class="form-control"/><br>
+               链接:<textarea name="href" class="form-control"><%= mod_data.href %></textarea><br>
+               图片:<input type="file" name="imgsrc" class="form-control"/><br>
+               <input type="submit" value="修改"  class="btn btn-lg btn-primary"/>
+               <a href="/admin/slides"  class="btn btn-lg btn-warning">取消修改</a>
+          </form>
+       </div>
+       <% } %>
+            </div>
+          </div>
+       </div>     
+</body>
+</html>
