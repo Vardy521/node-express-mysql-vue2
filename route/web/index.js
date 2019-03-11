@@ -26,7 +26,7 @@ module.exports=()=>{
     });
     router.get('/get_list',(req,res)=>{
        if(req.query.type){
-           console.log(req.query.type);
+        //    console.log(req.query.type);
         db.query(`SELECT ID,title,type,pubtime FROM banner_tab WHERE type='${req.query.type}'`,(err,data)=>{
             if(err){
                 console.error(err);

@@ -10,7 +10,7 @@ module.exports=function(){
     });
     router.post('/',(req,res)=>{
        // res.send('我是后台').end();
-        console.log(req.body);
+        // console.log(req.body);
         var uname=req.body.user;
         var pwd=common.md5(req.body.pwd+common.md5Suffix);
         db.query(`SELECT * FROM amin_tab WHERE username='${uname}';`,(err,data)=>{
